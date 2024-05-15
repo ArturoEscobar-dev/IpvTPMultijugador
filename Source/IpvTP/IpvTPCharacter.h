@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Interfaces/OnlineSessionInterface.h"
 #include "Logging/LogMacros.h"
 #include "IpvTPCharacter.generated.h"
 
@@ -70,6 +71,18 @@ public:
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
-	TSharedPtr<class IOnlineSession, ESPMode::ThreadSafe> OnlineSessionInterface;
+	IOnlineSessionPtr OnlineSessionInterface;
+
+protected:
+	UFUNCTION(Blueprintable)
+	void CreateGameSession();
+
+	//Callbacks
+	void OnCreateSessionComplete(FName SessionName, bool bWasSucces);
+	
+	
+private:
+	//Delegates
+	FOnCreateSessionCompleteDelegate CreateSessionCompleteDelegate;
 };
 

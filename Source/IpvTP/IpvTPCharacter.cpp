@@ -18,7 +18,8 @@ DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 //////////////////////////////////////////////////////////////////////////
 // AIpvTPCharacter
 
-AIpvTPCharacter::AIpvTPCharacter()
+AIpvTPCharacter::AIpvTPCharacter():
+CreateSessionCompleteDelegate(FOnCreateSessionCompleteDelegate::CreateUObject(this, &AIpvTPCharacter::OnCreateSessionComplete))
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -77,6 +78,14 @@ void AIpvTPCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+}
+
+void AIpvTPCharacter::CreateGameSession()
+{
+}
+
+void AIpvTPCharacter::OnCreateSessionComplete(FName SessionName, bool bWasSucces)
+{
 }
 
 //////////////////////////////////////////////////////////////////////////
